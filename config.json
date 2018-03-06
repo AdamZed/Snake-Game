@@ -1,0 +1,12 @@
+{
+    "resolution": {
+        "fps": 60,
+        "width": 1000,
+        "height": 700
+    },
+    "game": {
+        "cell_size": 20,
+        "growth": 5,
+        "speed": 35
+    }
+}
