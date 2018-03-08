@@ -27,13 +27,16 @@ def reset_board():
     SNAKE.reset()
     draw_screen()
 
+def cell_loc(val, cell):
+    return (CFG.xy[val][cell[0]-1], CFG.xy[val][cell[1]-1], CFG.cell_size[val], CFG.cell_size[val])
+
 def draw_screen():
     SCREEN.fill(CFG.BLACK)
-    pygame.draw.rect(SCREEN, CFG.BLUE, (CFG.xy_snake[SNAKE.head[0]-1],CFG.xy_snake[SNAKE.head[1]-1],CFG.snake_size,CFG.snake_size))
-    for place in SNAKE.body:
-        if place == SNAKE.head: continue
-        pygame.draw.rect(SCREEN, CFG.L_BLUE, (CFG.xy_snake[place[0]-1],CFG.xy_snake[place[1]-1],CFG.snake_size,CFG.snake_size))
-    pygame.draw.rect(SCREEN, CFG.RED, (CFG.xy[SNAKE.apple[0]-1],CFG.xy[SNAKE.apple[1]-1],CFG.cell_size,CFG.cell_size))
+    pygame.draw.rect(SCREEN, CFG.BLUE, cell_loc('snake',SNAKE.head))
+    for cell in SNAKE.body:
+        if cell == SNAKE.head: continue
+        pygame.draw.rect(SCREEN, CFG.L_BLUE, cell_loc('snake',cell))
+    pygame.draw.rect(SCREEN, CFG.RED, cell_loc('full',SNAKE.apple))
     score = font.render(str(SNAKE.length), True, CFG.WHITE)
     SCREEN.blit(score, (10,10))
     pygame.display.flip()
@@ -51,7 +54,6 @@ def get_key(keydown):
     elif keydown == pygame.K_LEFT: return 2
     elif keydown == pygame.K_RIGHT: return -2
     else: return 0
-
 
 draw_screen()
 mcount = 0
